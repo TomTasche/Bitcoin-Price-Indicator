@@ -30,11 +30,11 @@ SETTINGSFILE = os.path.abspath(HOME+"/.local/share/applications/settingsBTC.txt"
 BAD_RETRIEVE = 0.00001
 
 class BitcoinPriceIndicator:
-    PING_FREQUENCY = 2 # seconds
-    showBTCE = True
+    PING_FREQUENCY = 300 # seconds
     showMtGox = True
-    showBitfloor = True
-    showBit24 = True
+    showBTCE = False
+    showBitfloor = False
+    showBit24 = False
     dirInstall = os.path.abspath("./")
 
     def __init__(self):
@@ -52,9 +52,9 @@ class BitcoinPriceIndicator:
         except IOError:
             print 'Need to make new file.'
             file = open(SETTINGSFILE, 'w')
-            file.write('3 \n')
+            file.write('300 \n')
             file.write('True \n')
-            file.write('True \n')
+            file.write('False \n')
             file.write('False \n')
             file.write('False \n')
             file.close()
@@ -76,16 +76,16 @@ class BitcoinPriceIndicator:
 
     def menu_setup(self):
         self.menu = gtk.Menu()
-        togBTCE = gtk.MenuItem("Show/Hide BTC-E")
+        togBTCE = gtk.MenuItem("Toggle BTC-E")
         togBTCE.connect("activate", self.toggleBTCdisplay)
         togBTCE.show()
-        togMtGox = gtk.MenuItem("Show/Hide MtGox")
+        togMtGox = gtk.MenuItem("Toggle MtGox")
         togMtGox.connect("activate", self.toggleMtGoxdisplay)
         togMtGox.show()
-        togBit24 = gtk.MenuItem("Show/Hide Bitcoin-24")
+        togBit24 = gtk.MenuItem("Toggle Bitcoin-24")
         togBit24.connect("activate", self.toggleBit24display)
         togBit24.show()
-        togBitfloor = gtk.MenuItem("Show/Hide BitFloor")
+        togBitfloor = gtk.MenuItem("Toggle BitFloor")
         togBitfloor.connect("activate", self.toggleBitfloordisplay)
         togBitfloor.show()
         self.menu.append(togMtGox)
@@ -154,8 +154,8 @@ class BitcoinPriceIndicator:
             if priceNow == BAD_RETRIEVE:
                 priceNow = "TempDown"
             else:
-                priceNow = str(priceNow)+"USD"
-            dataOut = dataOut + "|MtGox: "+ priceNow
+                priceNow = str(priceNow)+"€"
+            dataOut = dataOut + "MtGox: "+ priceNow
         if self.showBTCE:
             priceNow = float(self.getBTCEBitcoinData())
             if priceNow == BAD_RETRIEVE:
@@ -183,7 +183,7 @@ class BitcoinPriceIndicator:
     def getMtGoxData(self):
         lstMtGox = BAD_RETRIEVE
         try :
-            web_page = urllib2.urlopen("http://data.mtgox.com/api/1/BTCUSD/ticker").read()
+            web_page = urllib2.urlopen("http://data.mtgox.com/api/1/BTCEUR/ticker").read() # http://data.mtgox.com/api/1/BTCUSD/ticker
             data = json.loads(web_page)
             lstMtGox = data['return']['last']['value']
         except urllib2.HTTPError :
