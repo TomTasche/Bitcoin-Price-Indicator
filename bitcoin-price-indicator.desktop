@@ -9,7 +9,7 @@ Categories=GNOME;Application;Network;
 Type=Application
 Terminal=false
 X-Ayatana-Desktop-Shortcuts=Regular;
-Name[en_US]=bitcoin-price-indicator.deskto
+Name[en_US]=bitcoin-price-indicator
 
 
 

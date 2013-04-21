@@ -154,7 +154,7 @@ class BitcoinPriceIndicator:
             if priceNow == BAD_RETRIEVE:
                 priceNow = "TempDown"
             else:
-                priceNow = str(priceNow)+"€"
+                priceNow = str(priceNow)+"EUR"
             dataOut = dataOut + "MtGox: "+ priceNow
         if self.showBTCE:
             priceNow = float(self.getBTCEBitcoinData())

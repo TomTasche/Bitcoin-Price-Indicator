@@ -47,9 +47,9 @@ else:
     try:
         print 'Make settings file :',SETTINGSFILE
         file = open(SETTINGSFILE, 'w')
-        file.write('3 \n')
+        file.write('300 \n')
         file.write('True \n')
-        file.write('True \n')
+        file.write('False \n')
         file.write('False \n')
         file.write('False \n')
         file.close()
